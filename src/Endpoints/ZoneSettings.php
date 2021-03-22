@@ -36,6 +36,21 @@ class ZoneSettings implements API
         return false;
     }
 
+    public function updateSettings($zoneId, $values)
+    {
+        $return = $this->adapter->patch(
+            'zones/' . $zoneID . '/settings',
+            $values
+        );
+        $body = json_decode($return->getBody());
+
+        if ($body->success) {
+            return true;
+        }
+
+        return false;
+    }
+    
     public function getMinifySetting($zoneID)
     {
         $return = $this->adapter->get(
