@@ -22,6 +22,20 @@ class ZoneSettings implements API
         $this->adapter = $adapter;
     }
 
+    public function getSettings($zoneID)
+    {
+        $return = $this->adapter->get(
+            'zones/' . $zoneID . '/settings/'
+        );
+        $body   = json_decode($return->getBody());
+
+        if ($body->success) {
+            return $body->result;
+        }
+
+        return false;
+    }
+
     public function getMinifySetting($zoneID)
     {
         $return = $this->adapter->get(
